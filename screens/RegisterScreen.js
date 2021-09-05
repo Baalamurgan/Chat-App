@@ -17,7 +17,19 @@ const RegisterScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
-  const register = () => {};
+  const register = () => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((authUser) => {
+        authUser.user.update({
+          displayName: name,
+          photoURL:
+            imageurl ||
+            "http://www.connectingcouples.us/wp-content/uploads/2019/07/avatar-placeholder.png",
+        });
+      })
+      .catch((err) => alert(err.message));
+  };
 
   return (
     <KeyboardAvoidingView behaviour="padding" style={styles.container}>
